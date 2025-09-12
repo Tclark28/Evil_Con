@@ -1,2 +1,3 @@
 # Convention_Chaos
-Game 400
+This is the git repository for group 1 of GAME 400 in the fall 2025 semester.
+Group Members: Tyler, Michael, Matthew, Jayson, and Keith
