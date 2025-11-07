@@ -9,6 +9,7 @@ public class DoorInteraction : MonoBehaviour
     public Material highlightMaterial;
     public Camera playerCamera;                        // assign your Main Camera
     public GameObject promptCanvas;                    // assign your "Press E" Canvas
+    public string sceneName;
 
     private Transform player;
     private Renderer doorRenderer;
@@ -41,7 +42,7 @@ public class DoorInteraction : MonoBehaviour
                     // Only allow interaction when highlighted
                     if (isHighlighted)
                     {
-                        SceneManager.LoadScene("MainLobby");
+                        SceneManager.LoadScene(sceneName);
                     }
                 }
             }
