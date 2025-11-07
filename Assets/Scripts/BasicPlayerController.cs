@@ -3,37 +3,40 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class BasicPlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;        // normal walk speed
-    public float sprintSpeed = 10f;     // sprint speed
-    public float rotationSpeed = 720f;
+    public float walkSpeed = 3.5f;
+    public float sprintSpeed = 6.5f;
+    public float rotationSpeed = 10f;
 
+    public Transform cameraTransform;  // MainCamera transform
     private CharacterController controller;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked; // Hide cursor
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
     {
-        // Get input
-        float horizontal = Input.GetAxis("Horizontal"); // A/D
-        float vertical = Input.GetAxis("Vertical");     // W/S
+        // Input
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
-        // Determine speed
-        float currentSpeed = moveSpeed;
-        if (Input.GetKey(KeyCode.LeftShift)) // Hold shift to sprint
+        Vector3 inputDir = new Vector3(horizontal, 0f, vertical).normalized;
+
+        // Determine movement direction relative to camera
+        if (inputDir.magnitude >= 0.1f)
         {
-            currentSpeed = sprintSpeed;
+            float targetAngle = Mathf.Atan2(inputDir.x, inputDir.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            float speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed;
+
+            controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
-
-        // Move relative to player forward
-        Vector3 move = transform.forward * vertical + transform.right * horizontal;
-        controller.Move(move * currentSpeed * Time.deltaTime);
-
-        // Rotate player with mouse
-        float mouseX = Input.GetAxis("Mouse X");
-        transform.Rotate(Vector3.up * mouseX * rotationSpeed * Time.deltaTime);
     }
+
+    private float turnVelocity;
 }
