@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
     // This method will be called when the button is clicked
     public void StartGame()
     {
-        SceneManager.LoadScene("GameScene"); // Change "GameScene" to your target scene name
+        SceneManager.LoadScene("Scene 1"); // Change "GameScene" to your target scene name
     }
 
     public void QuitGame()
