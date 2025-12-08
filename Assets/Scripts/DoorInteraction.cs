@@ -4,6 +4,8 @@ using TMPro;
 
 public class DoorInteraction : MonoBehaviour
 {
+    public string spawnPointID; // Unique ID for this door's destination in the next scene
+
     public float interactDistance = 3f;                // how close the player needs to be
     public Material defaultMaterial;
     public Material highlightMaterial;
@@ -42,6 +44,7 @@ public class DoorInteraction : MonoBehaviour
                     // Only allow interaction when highlighted
                     if (isHighlighted)
                     {
+                        SpawnPointManager.targetSpawnPoint = spawnPointID;
                         SceneManager.LoadScene(sceneName);
                     }
                 }

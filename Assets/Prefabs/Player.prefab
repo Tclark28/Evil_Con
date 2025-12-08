@@ -434,6 +434,7 @@ GameObject:
   - component: {fileID: 8104640842346061121}
   - component: {fileID: 8148620682640849414}
   - component: {fileID: 6145441416243114837}
+  - component: {fileID: 8186374465368346784}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -580,6 +581,18 @@ MonoBehaviour:
   sprintSpeed: 15
   rotationSpeed: 200
   cameraTransform: {fileID: 7776061873743495664}
+--- !u!114 &8186374465368346784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7903774620000643132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 288703e264b147f43a47c631a3895549, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnController
 --- !u!1 &9212881660093519752
 GameObject:
   m_ObjectHideFlags: 0
