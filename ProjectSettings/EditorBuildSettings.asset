@@ -26,6 +26,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/FurKing_BossRoom.unity
     guid: bd193a51e5ec83d4f9784070ed2021ab
+  - enabled: 1
+    path: Assets/Scenes/Closet.unity
+    guid: 803478d3f4050a343ab72697cbbc8aa3
+  - enabled: 1
+    path: Assets/Scenes/BattleScene.unity
+    guid: 3c7ebb59d8a756d40898e701b5f31908
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
