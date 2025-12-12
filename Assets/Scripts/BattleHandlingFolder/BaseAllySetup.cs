@@ -10,8 +10,8 @@ public class BaseAllySetup
     public string allyName;
 
     //The characters stats, base and current because they could change mid battle
-    public float baseHealth;
-    public float currhealth;
+    public float baseHP;
+    public float currHP;
     
     public float baseDefense;
     public float currDefense;

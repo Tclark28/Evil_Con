@@ -90,6 +90,7 @@ public class AllyStateMachine : GenBattleObjects
         //Implementation of allyAttack
         Debug.Log("Attacking enemy!");
         //Attack logic here
+        globalBattleHandler.damageEnemy(0, ally.currDamage);
     }
 
     public void allyBlock(){

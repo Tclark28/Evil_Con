@@ -10,7 +10,7 @@ public class EnemyStateMachine : GenBattleObjects
     public override float unitSpeed {get {return enemy.currSpeed;}}
     public override string unitName {get {return enemy.enemyName;}}
 
-    public State currentState; // Current state of the enemy
+    public static State currentState; // Current state of the enemy
 
     public GlobalBattleHandler globalBattleHandler; // Reference to the global battle handler
 
@@ -79,10 +79,6 @@ public class EnemyStateMachine : GenBattleObjects
         }
     }
 
-    
-
-    
-    
     public void enemyAttack()
     {
         //Implementation of enemyAttack

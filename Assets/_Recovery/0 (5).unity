@@ -254,7 +254,6 @@ MonoBehaviour:
     baseSpeed: 3
     currSpeed: 3
     canSpecial: 0
-  currentState: 0
   globalBattleHandler: {fileID: 0}
   printOnce: 1
 --- !u!1 &149174665
