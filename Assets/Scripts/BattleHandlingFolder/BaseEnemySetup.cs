@@ -7,7 +7,7 @@ using System.Collections;
 public class BaseEnemySetup
 {
     //Give the enemy a name
-    public string name;
+    public string enemyName;
 
     public float baseHP;
     public float currHP;

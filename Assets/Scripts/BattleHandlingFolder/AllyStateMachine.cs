@@ -1,36 +1,46 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class AllyStateMachine : GenBattleObjects
 {
     public BaseAllySetup ally;
+    
+    public override float unitSpeed {get {return ally.currSpeed;}}
+    public override string unitName {get {return ally.allyName;}}
 
     public State currentState;
 
     public GlobalBattleHandler globalBattleHandler;
 
-    public bool firstAction;
+    bool printOnce = true;
     //Initialize the current state
-    public void allyInit()
+    public override void localInit(GlobalBattleHandler instance)
     {
-        globalBattleHandler = GlobalBattleHandler.instance;
-        currentState = State.ADDTOLIST;
+        globalBattleHandler = instance;
+        globalBattleHandler.battleList.Add(this);
+        currentState = State.ACTION;
     }
 
     // Update is called once per frame
     public override void localUpdate()
     {
+        
         switch (currentState)
         {
             case (State.ADDTOLIST):
                 //Code for adding to the list
                 addToList();
-                firstAction = true;
+                printOnce = true;
                 break;
 
             case (State.ACTION):
                 //Code for doing the action
+                if(printOnce){
+                    Debug.Log(unitName + ": Take an action!");
+                    printOnce = false;
+                }
                 TakeAction();
                 break;
 
@@ -42,44 +52,59 @@ public class AllyStateMachine : GenBattleObjects
     }
 
     
-    public override void TakeAction()
-    {
-        //Implementation of TakeAction for Ally
-       if(firstAction){
-              Debug.Log("Choose an action");
-              firstAction = false;
-       }
-       //Perform action logic here
-       if(Input.GetKeyDown(KeyCode.Alpha1)){
-            Debug.Log("Ally used Skill 1!");
-            currentState = State.ADDTOLIST;
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha2)){
-            Debug.Log("Ally used Skill 2!");
-            currentState = State.ADDTOLIST;
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha3)){
-            Debug.Log("Ally used Skill 3!");
-            currentState = State.ADDTOLIST;
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha4)){
-            Debug.Log("Ally used Skill 4!");
-            currentState = State.ADDTOLIST;
-        }
-    }
+   
 
     public override void addToList()
     {
         //Implementation of addToList for Ally
-        Debug.Log("Added to the battle queue!");
         globalBattleHandler.battleQueue.Enqueue(this);
         currentState = State.ACTION;
+        globalBattleHandler.currentUnit = null;
+    }
+
+     public override void TakeAction()
+    {
+       //Perform action logic here
+       if(Input.GetKeyDown(KeyCode.Alpha1)){
+            allyAttack();
+            currentState = State.ADDTOLIST;
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha2)){
+            allyBlock();
+            currentState = State.ADDTOLIST;
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha3)){
+            allyItem();
+            currentState = State.ADDTOLIST;
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha4)){
+            Debug.Log("I am now going to run away!");
+            SceneManager.LoadScene("Scene 1");
+        }
+    }
+
+    
+    
+    public void allyAttack()
+    {
+        //Implementation of allyAttack
+        Debug.Log("Attacking enemy!");
+        //Attack logic here
+    }
+
+    public void allyBlock(){
+        //Implementation of allyBlock
+        Debug.Log("You have been blocked!");
+    }
+
+    public void allyItem(){
+        //Implementation of allyItem
+        Debug.Log("Prepare for an item!");
     }
 
     public override void Die()
     {
         Debug.Log("Ally has died.");
-        //Implementation of Die for Ally
+        SceneManager.LoadScene("Scene 1");
     }
-    
 }
