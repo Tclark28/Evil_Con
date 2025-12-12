@@ -62,37 +62,35 @@ public class EnemyStateMachine : GenBattleObjects
     public override void TakeAction()
     {
        //Perform action logic here
-       if(Input.GetKeyDown(KeyCode.Alpha1)){
+       int choice = Random.Range(1, 11);
+
+       if(choice <= 6) //Attack on 0 - 6
+       {
             enemyAttack();
-            currentState = State.ADDTOLIST;
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha2)){
-            enemyBlock();
-            currentState = State.ADDTOLIST;
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha3)){
-            enemyItem();
-            currentState = State.ADDTOLIST;
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha4)){
-            SceneManager.LoadScene("Scene 1");
-        }
+       }else{ //Block when above a 6
+            //Don't block if already blocking
+            if(!enemy.isBlocking){
+                enemyBlock();
+            }
+       }
+       
+       
     }
 
-    
-
-    
-    
     public void enemyAttack()
     {
         //Implementation of enemyAttack
         Debug.Log("Attacking an ally!");
         //Attack logic here
+        globalBattleHandler.damageAlly(enemy.currDamage);
+        currentState = State.ADDTOLIST;
     }
 
     public void enemyBlock(){
         //Implementation of enemy Block
         Debug.Log("You have been blocked! Evily!");
+        enemy.isBlocking = true;
+        currentState = State.ADDTOLIST;
     }
 
     public void enemyItem(){

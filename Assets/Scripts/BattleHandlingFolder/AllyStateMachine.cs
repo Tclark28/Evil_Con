@@ -70,8 +70,12 @@ public class AllyStateMachine : GenBattleObjects
             currentState = State.ADDTOLIST;
         }
         else if(Input.GetKeyDown(KeyCode.Alpha2)){
-            allyBlock();
-            currentState = State.ADDTOLIST;
+            if(!ally.isBlocking){
+                allyBlock();
+                currentState = State.ADDTOLIST;
+            }else{
+                Debug.Log("You cannot block twice without getting hit");
+            }
         }
         else if(Input.GetKeyDown(KeyCode.Alpha3)){
             allyItem();
@@ -90,11 +94,13 @@ public class AllyStateMachine : GenBattleObjects
         //Implementation of allyAttack
         Debug.Log("Attacking enemy!");
         //Attack logic here
+        globalBattleHandler.damageEnemy(0, ally.currDamage);
     }
 
     public void allyBlock(){
         //Implementation of allyBlock
         Debug.Log("You have been blocked!");
+        ally.isBlocking = true;
     }
 
     public void allyItem(){

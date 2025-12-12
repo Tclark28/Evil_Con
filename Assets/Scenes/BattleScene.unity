@@ -247,14 +247,17 @@ MonoBehaviour:
     enemyName: Tutorial Furling
     baseHP: 100
     currHP: 100
-    baseDamage: 10
-    currDamage: 10
-    baseSpeed: 70
-    currSpeed: 70
+    baseDamage: 5
+    currDamage: 5
+    baseDefense: 2
+    currDefense: 2
+    baseSpeed: 3
+    currSpeed: 3
     canSpecial: 0
+    isBlocking: 0
   currentState: 0
   globalBattleHandler: {fileID: 0}
-  firstAction: 0
+  printOnce: 1
 --- !u!1 &149174665
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +391,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Health: 100'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -501,8 +504,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AllyStateMachine
   ally:
     allyName: 
-    baseHealth: 100
-    currhealth: 100
+    baseHP: 0
+    currHP: 0
     baseDefense: 0
     currDefense: 0
     baseDamage: 34
@@ -510,6 +513,7 @@ MonoBehaviour:
     baseSpeed: 100
     currSpeed: 100
     canSpecial: 1
+    isBlocking: 0
   currentState: 0
   globalBattleHandler: {fileID: 0}
 --- !u!65 &203397723
@@ -661,7 +665,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Health: 100'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -945,16 +949,44 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
+      propertyPath: ally.baseHP
+      value: 445
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
+      propertyPath: ally.currHP
+      value: 445
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
       propertyPath: ally.allyName
       value: DudeBro ManStrong
       objectReference: {fileID: 0}
     - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
+      propertyPath: ally.baseSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
+      propertyPath: ally.currSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
+      propertyPath: ally.baseDamage
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
+      propertyPath: ally.canSpecial
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
+      propertyPath: ally.currDamage
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
       propertyPath: ally.baseDefense
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
       propertyPath: ally.currDefense
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6584351512752727944, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
       propertyPath: cameraTransform
@@ -1790,6 +1822,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467248911}
   m_CullTransparentMesh: 1
+--- !u!1 &1559665048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1559665050}
+  - component: {fileID: 1559665049}
+  m_Layer: 0
+  m_Name: UIObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1559665049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559665048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f8066aa2497904db0a7a956c63173b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIHandler
+  enemyUI: {fileID: 404105038}
+  allyUI: {fileID: 167985645}
+--- !u!4 &1559665050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559665048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 42.62066, y: 3.55868, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1761501401
 GameObject:
   m_ObjectHideFlags: 0
@@ -2146,7 +2224,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GlobalBattleHandler
   allyHandler: {fileID: 763471393}
   enemyHandler: {fileID: 84164458}
+  UI_Handler: {fileID: 1559665049}
   battleList: []
+  currentUnit: {fileID: 0}
 --- !u!4 &1989930907
 Transform:
   m_ObjectHideFlags: 0
@@ -2387,3 +2467,4 @@ SceneRoots:
   - {fileID: 1345650716}
   - {fileID: 763471390}
   - {fileID: 1989930907}
+  - {fileID: 1559665050}
