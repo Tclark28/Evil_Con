@@ -183,8 +183,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThirdPersonCamera
   target: {fileID: 905371337008789027}
-  distance: 5
-  height: 1.5
+  distance: 6
+  height: 1.7
   sensitivity: 300
   rotationSmoothTime: 0.1
   pitchLimits: {x: -30, y: 60}
@@ -469,6 +469,9 @@ MonoBehaviour:
     baseSpeed: 100
     currSpeed: 100
     canSpecial: 0
+  currentState: 0
+  globalBattleHandler: {fileID: 0}
+  firstAction: 0
 --- !u!4 &905371337008789027 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c6ffacd6afdb54f44988f030e59b9027, type: 3}
