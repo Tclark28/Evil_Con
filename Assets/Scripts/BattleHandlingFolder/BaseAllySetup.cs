@@ -4,7 +4,7 @@ using System.Collections;
 [System.Serializable]
 
 //Class that is used to set up each hero for battle
-public class BaseHeroBattler
+public class BaseAllySetup
 {
     //The characters name
     public string name;

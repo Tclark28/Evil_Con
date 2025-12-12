@@ -9,6 +9,8 @@ public class AllyStateMachine : GenBattleObjects
     public State currentState;
 
     public GlobalBattleHandler globalBattleHandler;
+
+    public bool firstAction;
     //Initialize the current state
     public void allyInit()
     {
@@ -24,6 +26,7 @@ public class AllyStateMachine : GenBattleObjects
             case (State.ADDTOLIST):
                 //Code for adding to the list
                 addToList();
+                firstAction = true;
                 break;
 
             case (State.ACTION):
@@ -38,34 +41,31 @@ public class AllyStateMachine : GenBattleObjects
         }
     }
 
+    
     public override void TakeAction()
     {
         //Implementation of TakeAction for Ally
-       //bool actionComplete = false;
-        /*
-        while (!actionComplete)
-        {
-            //Perform action logic here
-            if(Keyboard.current){
-                Debug.Log("Ally used Skill 1!");
-                actionComplete = true;
-            }
-            if(Keyboard.current[Key.2].wasPressedThisFrame){
-                Debug.Log("Ally used Skill 2!");
-                actionComplete = true;
-            }
-            if(Keyboard.current[Key.3].wasPressedThisFrame){
-                Debug.Log("Ally used Skill 3!");
-                actionComplete = true;
-            }
-            if(Keyboard.current[Key.4].wasPressedThisFrame){
-                Debug.Log("Ally used Skill 4!");
-                actionComplete = true;
-            }
+       if(firstAction){
+              Debug.Log("Choose an action");
+              firstAction = false;
+       }
+       //Perform action logic here
+       if(Input.GetKeyDown(KeyCode.Alpha1)){
+            Debug.Log("Ally used Skill 1!");
+            currentState = State.ADDTOLIST;
         }
-        */
-        Debug.Log("Taking action!");
-        currentState = State.ADDTOLIST;
+        else if(Input.GetKeyDown(KeyCode.Alpha2)){
+            Debug.Log("Ally used Skill 2!");
+            currentState = State.ADDTOLIST;
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha3)){
+            Debug.Log("Ally used Skill 3!");
+            currentState = State.ADDTOLIST;
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha4)){
+            Debug.Log("Ally used Skill 4!");
+            currentState = State.ADDTOLIST;
+        }
     }
 
     public override void addToList()
