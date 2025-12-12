@@ -5,5 +5,4 @@ public class EnemyStateMachine : MonoBehaviour
 {
     public BaseEnemySetup enemy;
 
-
 }
