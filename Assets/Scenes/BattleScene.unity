@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 84164456}
   - component: {fileID: 84164455}
   - component: {fileID: 84164454}
-  - component: {fileID: 84164453}
+  - component: {fileID: 84164458}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -139,27 +139,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &84164453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84164452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd595dd09e074d24183ebceb23f74085, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
-  enemy:
-    name: Tutorial Furling
-    baseHP: 100
-    currHP: 100
-    baseDamage: 25
-    currDamage: 25
-    baseSpeed: 100
-    currSpeed: 100
-    canSpecial: 0
 --- !u!65 &84164454
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -252,6 +231,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 221.366, z: 0}
+--- !u!114 &84164458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84164452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd595dd09e074d24183ebceb23f74085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
+  enemy:
+    enemyName: Tutorial Furling
+    baseHP: 100
+    currHP: 100
+    baseDamage: 10
+    currDamage: 10
+    baseSpeed: 70
+    currSpeed: 70
+    canSpecial: 0
+  currentState: 0
+  globalBattleHandler: {fileID: 0}
+  firstAction: 0
 --- !u!1 &149174665
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,15 +500,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllyStateMachine
   ally:
-    name: DudeBro Manstrong
+    allyName: 
     baseHealth: 100
     currhealth: 100
+    baseDefense: 0
+    currDefense: 0
     baseDamage: 34
     currDamage: 34
     baseSpeed: 100
     currSpeed: 100
     canSpecial: 1
   currentState: 0
+  globalBattleHandler: {fileID: 0}
 --- !u!65 &203397723
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -938,6 +944,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
+      propertyPath: ally.allyName
+      value: DudeBro ManStrong
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
+      propertyPath: ally.baseDefense
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
+      propertyPath: ally.currDefense
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6584351512752727944, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
       propertyPath: cameraTransform
       value: 
@@ -946,37 +964,19 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 6365767624826383417, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 566141576880516249, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 763471392}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
---- !u!1 &763471391 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 566141576880516249, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
+--- !u!114 &763471393 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
   m_PrefabInstance: {fileID: 763471390}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &763471392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 763471391}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c99f43177650c6a488569d60e2ca080a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AllyStateMachine
-  ally:
-    name: 
-    baseHealth: 0
-    currhealth: 0
-    baseDamage: 0
-    currDamage: 0
-    baseSpeed: 0
-    currSpeed: 0
-    canSpecial: 0
 --- !u!1 &774460145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2144,7 +2144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c857631356cf71f4093f2b98e4f52048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GlobalBattleHandler
-  allyHandler: {fileID: 203397722}
+  allyHandler: {fileID: 763471393}
+  enemyHandler: {fileID: 84164458}
+  battleList: []
 --- !u!4 &1989930907
 Transform:
   m_ObjectHideFlags: 0

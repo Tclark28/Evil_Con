@@ -7,11 +7,14 @@ using System.Collections;
 public class BaseAllySetup
 {
     //The characters name
-    public string name;
+    public string allyName;
 
     //The characters stats, base and current because they could change mid battle
     public float baseHealth;
     public float currhealth;
+    
+    public float baseDefense;
+    public float currDefense;
     
     public float baseDamage;
     public float currDamage;
