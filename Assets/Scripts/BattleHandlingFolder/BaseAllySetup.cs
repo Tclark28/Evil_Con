@@ -23,5 +23,5 @@ public class BaseAllySetup
     public float currSpeed;
 
     public bool canSpecial;
-
+    public bool isBlocking;
 }

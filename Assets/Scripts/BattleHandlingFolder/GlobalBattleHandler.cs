@@ -57,14 +57,40 @@ public class GlobalBattleHandler : MonoBehaviour
         float damage = (float)((1.2 * weaponDamage) + (1.5 * allyDamage)) * 5;
         damage -= (float)((1.5 * enemyHandler.enemy.currDefense) * 0.3);
 
+        if(enemyHandler.enemy.isBlocking){
+            damage *= (float)0.5;
+        }
+
         enemyHandler.enemy.currHP -= damage;
 
         if(enemyHandler.enemy.currHP <= 0){
-            EnemyStateMachine.currentState = State.DEAD;
+            enemyHandler.currentState = State.DEAD;
             currentUnit = enemyHandler;
             return;
         }
-        
+
+        enemyHandler.enemy.isBlocking = false;
         UI_Handler.updateHealthEnemy(enemyHandler.enemy.currHP);
+    }
+
+    public void damageAlly(float enemyDamage)
+    {
+        float damage = (float)((1.5 * enemyDamage)) * 5;
+        damage -= (float)((1.5 * allyHandler.ally.currDefense) * 0.3);
+
+        if(allyHandler.ally.isBlocking){
+            damage *= (float)0.5;
+        }
+
+        allyHandler.ally.currHP -= damage;
+
+        if(allyHandler.ally.currHP <= 0){
+            allyHandler.currentState = State.DEAD;
+            currentUnit = allyHandler;
+            return;
+        }
+        
+        allyHandler.ally.isBlocking = false;
+        UI_Handler.updateHealthAlly(allyHandler.ally.currHP);
     }
 }
