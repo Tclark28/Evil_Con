@@ -1,116 +1,167 @@
 using UnityEngine;
-using System.Collections.Generic;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class AllyStateMachine : GenBattleObjects
 {
     public BaseAllySetup ally;
-    
-    public override float unitSpeed {get {return ally.currSpeed;}}
-    public override string unitName {get {return ally.allyName;}}
+
+    public override float unitSpeed { get { return ally != null ? ally.currSpeed : 0; } }
+    public override string unitName { get { return ally != null ? ally.allyName : "Unknown"; } }
 
     public State currentState;
-
     public GlobalBattleHandler globalBattleHandler;
+    private bool printOnce = true;
+    private float actionTimeout = 10f; // Time to wait for player input
+    private float currentTimeout;
 
-    bool printOnce = true;
-    //Initialize the current state
+    // FIXED: Added missing reference check
+    void Start()
+    {
+        if (ally == null)
+        {
+            Debug.LogError("AllyStateMachine: No ally setup assigned!");
+            enabled = false;
+        }
+    }
+
     public override void localInit(GlobalBattleHandler instance)
     {
         globalBattleHandler = instance;
-        globalBattleHandler.battleList.Add(this);
-        currentState = State.ACTION;
+        // FIXED: Don't add here - GlobalBattleHandler does it
+        currentState = State.ADDTOLIST; // Start by adding to list
+        currentTimeout = actionTimeout;
     }
 
-    // Update is called once per frame
     public override void localUpdate()
     {
-        
+        if (globalBattleHandler == null || ally == null) return;
+
         switch (currentState)
         {
-            case (State.ADDTOLIST):
-                //Code for adding to the list
+            case State.ADDTOLIST:
                 addToList();
                 printOnce = true;
+                currentTimeout = actionTimeout; // Reset timeout
                 break;
 
-            case (State.ACTION):
-                //Code for doing the action
-                if(printOnce){
-                    Debug.Log(unitName + ": Take an action!");
+            case State.WAITING:
+                // Wait for turn
+                break;
+
+            case State.ACTION:
+                if (printOnce)
+                {
+                    Debug.Log(unitName + ": Your turn! Choose an action!");
                     printOnce = false;
                 }
-                TakeAction();
+
+                // FIXED: Add timeout so enemy can take turn if player doesn't act
+                currentTimeout -= Time.deltaTime;
+                if (currentTimeout <= 0)
+                {
+                    Debug.Log(unitName + ": Timeout! Skipping turn.");
+                    allyBlock(); // Default to block on timeout
+                    currentState = State.ADDTOLIST;
+                }
+                else
+                {
+                    TakeAction();
+                }
                 break;
 
-            case (State.DEAD):
-                //Code for when dead
+            case State.DEAD:
                 Die();
                 break;
         }
     }
 
-    
-   
-
     public override void addToList()
     {
-        //Implementation of addToList for Ally
-        globalBattleHandler.battleQueue.Enqueue(this);
-        currentState = State.ACTION;
+        if (globalBattleHandler == null || ally == null) return;
+
+        // FIXED: Only add if not already in queue
+        if (!globalBattleHandler.battleQueue.Contains(this))
+        {
+            globalBattleHandler.battleQueue.Enqueue(this);
+        }
+
+        currentState = State.WAITING; // Wait for turn
         globalBattleHandler.currentUnit = null;
     }
 
-     public override void TakeAction()
+    public override void TakeAction()
     {
-       //Perform action logic here
-       if(Input.GetKeyDown(KeyCode.Alpha1)){
+        if (globalBattleHandler == null || ally == null) return;
+
+        Debug.Log("Ally TakeAction() called. Waiting for input (1=Attack, 2=Block, 3=Item, 4=Run)...");
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Debug.Log("Ally chose to ATTACK!");
             allyAttack();
             currentState = State.ADDTOLIST;
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha2)){
-            if(!ally.isBlocking){
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (!ally.isBlocking)
+            {
+                Debug.Log("Ally chose to BLOCK!");
                 allyBlock();
                 currentState = State.ADDTOLIST;
-            }else{
-                Debug.Log("You cannot block twice without getting hit");
+            }
+            else
+            {
+                Debug.Log("You're already blocking!");
             }
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha3)){
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Debug.Log("Ally chose to use ITEM!");
             allyItem();
             currentState = State.ADDTOLIST;
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha4)){
-            Debug.Log("I am now going to run away!");
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Debug.Log("Ally chose to RUN!");
             SceneManager.LoadScene("Scene 1");
         }
     }
 
-    
-    
     public void allyAttack()
     {
-        //Implementation of allyAttack
-        Debug.Log("Attacking enemy!");
-        //Attack logic here
-        globalBattleHandler.damageEnemy(0, ally.currDamage);
+        Debug.Log("Ally attacking enemy!");
+
+        if (globalBattleHandler != null)
+        {
+            globalBattleHandler.damageEnemy(0, ally.currDamage);
+        }
     }
 
-    public void allyBlock(){
-        //Implementation of allyBlock
-        Debug.Log("You have been blocked!");
+    public void allyBlock()
+    {
+        Debug.Log(unitName + ": Blocking!");
         ally.isBlocking = true;
     }
 
-    public void allyItem(){
-        //Implementation of allyItem
-        Debug.Log("Prepare for an item!");
+    public void allyItem()
+    {
+        Debug.Log(unitName + ": Using item!");
+        // Add item logic here
     }
 
     public override void Die()
     {
         Debug.Log("Ally has died.");
-        SceneManager.LoadScene("Scene 1");
+
+        // Just deactivate the ally
+        gameObject.SetActive(false);
+
+        // Let GlobalBattleHandler handle scene transition
+        if (globalBattleHandler != null)
+        {
+            globalBattleHandler.RemoveDeadUnit(this);
+        }
+
+        // DO NOT load scene here - GlobalBattleHandler handles it
     }
 }

@@ -15,8 +15,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Scene 1.unity
     guid: 571584c85d38b05468f35ce768a9a631
   - enabled: 1
+    path: Assets/Scenes/BattleScene.unity
+    guid: 3c7ebb59d8a756d40898e701b5f31908
+  - enabled: 1
     path: Assets/Scenes/Furr-King's Domain.unity
-    guid: abf890a1ebf3d7a41a92dc92c62e9a8b
+    guid: fdf980df24933dd4e973b3e7b990eb2e
+  - enabled: 1
+    path: Assets/Scenes/Closet.unity
+    guid: 803478d3f4050a343ab72697cbbc8aa3
   - enabled: 0
     path: Assets/Scenes/GameScene.unity
     guid: 429aed91b0a084240896206f21b3c7ca
@@ -26,12 +32,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/FurKing_BossRoom.unity
     guid: bd193a51e5ec83d4f9784070ed2021ab
-  - enabled: 1
-    path: Assets/Scenes/Closet.unity
-    guid: 803478d3f4050a343ab72697cbbc8aa3
-  - enabled: 1
-    path: Assets/Scenes/BattleScene.unity
-    guid: 3c7ebb59d8a756d40898e701b5f31908
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

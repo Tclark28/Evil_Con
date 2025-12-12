@@ -256,7 +256,7 @@ MonoBehaviour:
     canSpecial: 0
     isBlocking: 0
   currentState: 0
-  globalBattleHandler: {fileID: 0}
+  globalBattleHandler: {fileID: 1989930906}
   printOnce: 1
 --- !u!1 &149174665
 GameObject:
@@ -988,6 +988,10 @@ PrefabInstance:
       propertyPath: ally.currDefense
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 5681645494010021572, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
+      propertyPath: globalBattleHandler
+      value: 
+      objectReference: {fileID: 1989930906}
     - target: {fileID: 6584351512752727944, guid: 5947cbb4df38701449bb2329d3c57b3b, type: 3}
       propertyPath: cameraTransform
       value: 

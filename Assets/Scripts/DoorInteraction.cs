@@ -26,12 +26,15 @@ public class DoorInteraction : MonoBehaviour
 
     void Update()
     {
-        float distance = Vector3.Distance(player.position, transform.position);
+        // Add distance check first (cheap)
+        if (player == null) return;
 
-        // Check if close enough
-        if (distance <= interactDistance)
+        float sqrDistance = (player.position - transform.position).sqrMagnitude;
+        float sqrInteractDistance = interactDistance * interactDistance;
+
+        if (sqrDistance <= sqrInteractDistance)
         {
-            // Check if camera is facing the door
+            // Only do expensive calculations when close enough
             Vector3 directionToDoor = (transform.position - playerCamera.transform.position).normalized;
             float dot = Vector3.Dot(playerCamera.transform.forward, directionToDoor);
 
